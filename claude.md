@@ -243,3 +243,112 @@ Build a professional code difference comparison tool similar to WinMerge using R
 - Responsive design works on desktop and tablet
 - All core features functional and bug-free
 - Code is production-ready and maintainable
+
+---
+
+## Development Changelog
+
+### Version 1.0 - Initial Implementation (January 2026)
+
+#### Core Features Implemented:
+1. **Project Setup**
+   - Vite + React project with Tailwind CSS
+   - Monaco Editor integration (@monaco-editor/react)
+   - Prettier integration for code formatting
+
+2. **Diff Algorithm**
+   - Custom LCS (Longest Common Subsequence) implementation
+   - Line-level diff with merge of adjacent delete/add pairs into "modified"
+   - Character-level diff for inline highlighting within modified lines
+   - **Bug Fixed**: Corrected merge logic that wasn't properly pairing consecutive deletes with adds
+
+3. **Side-by-Side Editor Layout (WinMerge-style)**
+   - Two Monaco Editor panels (Original / Modified)
+   - Direct editing in both panels with inline diff highlighting
+   - No separate merged result panel - differences shown in-place
+
+4. **Diff Decorations**
+   - Line background highlighting (red=deleted, green=added, yellow=modified)
+   - Glyph margin markers for quick visual identification
+   - Applied via Monaco's `deltaDecorations` API
+
+5. **View Zones (Grey Placeholder Lines)**
+   - Grey placeholder lines where code is missing on one side
+   - Uses Monaco's `changeViewZones` API
+   - Keeps both panels visually aligned like WinMerge
+   - Subtle diagonal stripe pattern on placeholders
+
+6. **Synchronized Scrolling**
+   - Both editors scroll together
+   - Uses `onDidScrollChange` and `setScrollTop` APIs
+
+7. **Navigation**
+   - Next/Previous difference buttons
+   - Jump to line (Ctrl+G)
+   - Minimap showing all diff locations with click-to-jump
+
+8. **Comparison Options**
+   - Ignore whitespace toggle
+   - Ignore case toggle
+   - Ignore blank lines toggle
+
+9. **Merge Operations**
+   - Copy all to left/right buttons between panels
+
+10. **File Handling**
+    - Drag and drop file upload to either panel
+    - Swap panels button
+    - Clear all button
+
+11. **Code Formatting**
+    - Prettier format button on each panel
+    - Supports: JavaScript, TypeScript, HTML, CSS, JSON, GraphQL, YAML, Markdown
+    - Loading spinner during formatting
+
+12. **Export Features**
+    - Export unified diff patch file
+    - Export HTML comparison report
+    - Copy diff to clipboard
+
+13. **Language Detection**
+    - Auto-detects language from code content
+    - Maps to Monaco language IDs and Prettier parsers
+    - **Known Issue**: Detection order matters - some patterns overlap (e.g., `import` exists in Python, Java, JS)
+
+14. **Keyboard Shortcuts**
+    - F8 / Ctrl+D: Next difference
+    - Shift+F8: Previous difference
+    - Ctrl+G: Go to line
+
+15. **UI/UX**
+    - Dark theme with professional styling
+    - Diff statistics in header
+    - Footer with shortcut hints
+    - Responsive layout
+
+#### Unit Tests:
+- 25 tests covering diff algorithm, decorations, and view zones
+- Test file: `src/diff.test.js`
+
+#### Known Issues / TODO:
+- [ ] Language detection needs improvement (Java `import static` detected as Python)
+- [ ] Add manual language selector dropdown
+- [ ] 3-way merge not yet implemented
+- [ ] Word wrap toggle not yet implemented
+- [ ] Find and Replace not yet implemented
+- [ ] Binary file comparison not yet implemented
+
+#### Project Structure:
+```
+/webmerge
+├── src/
+│   ├── App.jsx          # Main application (all components)
+│   ├── main.jsx         # Entry point
+│   ├── index.css        # Tailwind + custom styles
+│   └── diff.test.js     # Unit tests
+├── index.html
+├── package.json
+├── vite.config.js
+├── tailwind.config.js
+└── postcss.config.js
+```
