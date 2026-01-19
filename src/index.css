@@ -1,0 +1,240 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Fira Code', Monaco, Consolas, monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Sync scrolling indicator */
+.scroll-synced {
+  scroll-behavior: auto;
+}
+
+/* Diff line styles */
+.diff-line {
+  min-height: 20px;
+  line-height: 20px;
+  white-space: pre;
+  font-size: 13px;
+}
+
+.diff-line-number {
+  display: inline-block;
+  width: 50px;
+  text-align: right;
+  padding-right: 10px;
+  color: #6e7681;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.diff-added {
+  background-color: rgba(46, 160, 67, 0.15);
+}
+
+.diff-added .diff-line-number {
+  background-color: rgba(46, 160, 67, 0.25);
+}
+
+.diff-deleted {
+  background-color: rgba(248, 81, 73, 0.15);
+}
+
+.diff-deleted .diff-line-number {
+  background-color: rgba(248, 81, 73, 0.25);
+}
+
+.diff-modified {
+  background-color: rgba(187, 128, 9, 0.15);
+}
+
+.diff-modified .diff-line-number {
+  background-color: rgba(187, 128, 9, 0.25);
+}
+
+.diff-unchanged {
+  background-color: transparent;
+}
+
+/* Inline character diff highlighting */
+.char-added {
+  background-color: rgba(46, 160, 67, 0.4);
+  border-radius: 2px;
+}
+
+.char-deleted {
+  background-color: rgba(248, 81, 73, 0.4);
+  border-radius: 2px;
+}
+
+.char-modified {
+  background-color: rgba(187, 128, 9, 0.4);
+  border-radius: 2px;
+}
+
+/* Location minimap */
+.minimap {
+  position: relative;
+  width: 60px;
+  background: #1e1e1e;
+  border-left: 1px solid #333;
+}
+
+.minimap-marker {
+  position: absolute;
+  width: 100%;
+  min-height: 2px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.minimap-marker:hover {
+  opacity: 0.8;
+}
+
+.minimap-marker.added {
+  background-color: #2ea043;
+}
+
+.minimap-marker.deleted {
+  background-color: #f85149;
+}
+
+.minimap-marker.modified {
+  background-color: #bb8009;
+}
+
+/* Animation for formatting spinner */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Drag and drop overlay */
+.drop-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(59, 130, 246, 0.2);
+  border: 3px dashed #3b82f6;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+/* Tooltip */
+.tooltip {
+  position: relative;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  background: #333;
+  color: #fff;
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+}
+
+/* Button styles */
+.btn {
+  @apply px-3 py-1.5 rounded text-sm font-medium transition-colors duration-200;
+}
+
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white;
+}
+
+.btn-secondary {
+  @apply bg-gray-700 hover:bg-gray-600 text-white;
+}
+
+.btn-success {
+  @apply bg-green-600 hover:bg-green-700 text-white;
+}
+
+.btn-danger {
+  @apply bg-red-600 hover:bg-red-700 text-white;
+}
+
+.btn-warning {
+  @apply bg-yellow-600 hover:bg-yellow-700 text-white;
+}
+
+/* Panel resizer */
+.resizer {
+  width: 4px;
+  background: #333;
+  cursor: col-resize;
+  transition: background 0.2s;
+}
+
+.resizer:hover {
+  background: #3b82f6;
+}
+
+/* Focus styles */
+.focus-ring:focus {
+  outline: none;
+  ring: 2px;
+  ring-offset: 2px;
+  ring-color: #3b82f6;
+}
+
+/* Monaco editor overrides */
+.monaco-editor {
+  border-radius: 4px;
+}
+
+.monaco-editor .margin {
+  background: #1e1e1e !important;
+}
